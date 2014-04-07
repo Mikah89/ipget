@@ -3,8 +3,14 @@
 FILENAME="lastip.out"
 MAILRCV=""
 
-CURRIP=$(curl --silent http://ipecho.net/plain)
 OLDIP=$(tail $FILENAME)
+CURRIP=$(curl --silent http://ipecho.net/plain)
+
+if [ $? -ne 0 ]
+then
+    echo "Failed to obtain current ip."
+    exit -1
+fi
 
 if [ "$CURRIP" != "$OLDIP" ]
 then
